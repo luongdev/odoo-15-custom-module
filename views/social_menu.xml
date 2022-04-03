@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+    <menuitem id="mesocials.menu_root_socials" name="Socials" sequence="10" action="action_socials" />
+
+    <template id="layout_inherit" inherit_id="web.layout">
+      <xpath expr="//head/title" position="after">
+        <link type="text/css" rel="stylesheet" href="/mesocials/static/src/components/test/main.css" />
+        <link type="text/css" rel="stylesheet" href="/mesocials/static/src/components/test/ionicons.min.css" />
+      </xpath>
+  </template>
+  </data>
+</odoo>

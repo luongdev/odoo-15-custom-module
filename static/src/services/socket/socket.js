@@ -30,10 +30,6 @@ export const SocketService = AbstractService.extend({
             }
         });
 
-        if (!listeners || listeners.length === 0) {
-            throw new Error('Socket listener required!');
-        }
-
         this._socket.on('connect', () => {
             const initData = {
                 cloudTenantId: 135,
@@ -42,10 +38,10 @@ export const SocketService = AbstractService.extend({
                 applicationIds: ["108717091450300", "110572867303162"],
                 maxNumOfConversations: 1000
             };
-            console.log('Day la socket id nay ... ' + this._socket.id)
             this._socket.emit('agent_initialize', initData, initCb => {
                 console.log(initCb)
                 this._socket.on('agent_receive_notification', notification => {
+                    debugger
                     for(const listener of listeners) {
                         listener(notification);
                     }

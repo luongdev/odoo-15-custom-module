@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
   <t t-name="mesocials.CustomerList" owl="1">
-    <div class="row">
-      Customer List
+    <div style="overflow: scroll; height: 90vh;">
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
+      <Customer/>
     </div>
   </t>
 

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-
     <t t-name="mesocials.SocialWidget" owl="1">
-        <Chat />
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-6 pr-0">
+                <Sidebar/>
+            </div>
+            <div class="col-md-8 col-sm-6 col-6 pl-1" style="border-left: 1px solid #c3c3c3; height: 100vh;">
+                <Conversation />
+            </div>
+        </div>
     </t>
-
 </templates>

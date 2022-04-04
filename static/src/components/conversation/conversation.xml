@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="mesocials.Conversation" owl="1">
+        <div class="d-flex flex-column">
+            <!--    Conversation header    -->
+            <div class="o_Message pt-1 d-flex justify-content-end mb-2 pt-2 pb-2" style="height: 64px;">
+                <div class="o_Message_core d-flex flex-column pl-4 pr-4">
+                    <div class="o_Message_header ml-2 row">
+                        <div class="o_Message_authorName o_Message_authorRedirect o_redirect text-truncate">
+                            Text to
+                        </div>
+                    </div>
+                    <div class="o_Message_content mx-2 row">
+                        Text be
+                    </div>
+                </div>
+            </div>
+            <!--    Conversation messages    -->
+            <div style="max-height: 80vh; overflow: auto;">
+                <MessageList/>
+            </div>
+            <!--    Conversation composer    -->
+            <div class="o_Composer d-flex align-items-center" style="height: 100px;">
+                <div class="o_Composer_sidebarMain">
+                </div>
+                <div class="o_Composer_coreMain">
+                    <div class="o_ComposerTextInput w-100 d-flex">
+                        <textarea
+                                class="o_ComposerTextInput_textarea o_ComposerTextInput_textareaStyle w-100"
+                                cols="5"
+                                style="width: 80%;"
+                        />
+                        <button
+                                class="o_Composer_actionButton o_Composer_button o_Composer_buttonSend btn btn-primary"
+                                style="width: 64px;"
+                        >
+                            <i class="fa fa-paper-plane-o"/>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

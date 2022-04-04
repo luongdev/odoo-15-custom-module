@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="mesocials.MessageList" owl="1">
+        <div class="mr-2 ml-2" style="max-height: 66vh; overflow: auto;">
+            <t t-foreach="state.messages" t-as="message">
+                <Message
+                    messageAlign="message.author === '1' ? 'left' : 'right'"
+                    t-on-click="onMessageClick"
+                />
+            </t>
+        </div>
+    </t>
+</templates>

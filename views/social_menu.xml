@@ -5,8 +5,8 @@
 
     <template id="layout_inherit" inherit_id="web.layout">
       <xpath expr="//head/title" position="after">
-        <link type="text/css" rel="stylesheet" href="/mesocials/static/src/components/test/main.css" />
-        <link type="text/css" rel="stylesheet" href="/mesocials/static/src/components/test/ionicons.min.css" />
+<!--        <link type="text/css" rel="stylesheet" href="/mesocials/static/src/components/test/main.css" />-->
+<!--        <link type="text/css" rel="stylesheet" href="/mesocials/static/src/components/test/ionicons.min.css" />-->
       </xpath>
   </template>
   </data>

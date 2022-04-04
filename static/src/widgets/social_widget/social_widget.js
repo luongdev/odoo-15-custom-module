@@ -1,12 +1,13 @@
 /** @odoo-module **/
 
-import { Chat } from '../../components/chat/chat';
+import { Sidebar } from '../../components/sidebar/sidebar';
+import { Conversation } from '../../components/conversation/conversation';
 
 const { Component } = owl;
 
 export class SocialWidget extends Component {
 
     static template = 'mesocials.SocialWidget';
-    static components = { Chat };
+    static components = { Conversation, Sidebar };
 
 }

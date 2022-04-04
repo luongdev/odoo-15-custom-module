@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="mesocials.Message" owl="1">
+        <div class="o_Message pt-1 d-flex mb-2" t-att-class="{ 'justify-content-end': props.messageAlign === 'right'}">
+            <div class="o_Message_core d-flex flex-column pl-4 pr-4">
+                <div class="o_Message_header ml-2 row">
+                    <div class="o_Message_authorName o_Message_authorRedirect o_redirect text-truncate">
+                        <t t-esc="'Nguoi gui'"/>
+                    </div>
+                    <div class="o_Message_date o_Message_headerDate">
+                        - <t t-esc="'2 hours ago'"/>
+                    </div>
+                </div>
+                <div class="o_Message_content mx-2 row">
+                    <p t-esc="'Day la message content'"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

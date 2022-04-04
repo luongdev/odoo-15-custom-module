@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="mesocials.Sidebar" owl="1">
+        <div>
+            <div class="dropdown mb-4 mr-2 ml-2">
+                <button
+                        class="btn btn-secondary dropdown-toggle w-100"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                >
+                    Chọn kênh
+                </button>
+                <div class="dropdown-menu dropdown w-100" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Kênh Zalo 1</a>
+                    <a class="dropdown-item" href="#">Kênh FB 2</a>
+                    <a class="dropdown-item" href="#">Kênh FB 3</a>
+                </div>
+            </div>
+            <div>
+                <CustomerList />
+            </div>
+        </div>
+    </t>
+</templates>

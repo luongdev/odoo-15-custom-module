@@ -17,7 +17,6 @@
       'web.assets_backend': [
         'mesocials/static/src/components/*/*.js',
         'mesocials/static/src/widgets/*/*.js',
-        'mesocials/static/src/components/test/*.js',
       ],
       'web.assets_backend_prod_only': [
         'mesocials/static/src/main.js'

@@ -3,7 +3,7 @@
   <t t-name="mesocials.CustomerList" owl="1">
     <div style="overflow: scroll; height: 90vh;">
       <t t-foreach="state.senderIds" t-as="senderId">
-        <Customer customer="getCustomer(senderId)"/>
+        <Customer customer="getCustomer(senderId)" />
       </t>
     </div>
   </t>

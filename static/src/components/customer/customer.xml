@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="o_Message_content mx-2 row">
-                        <p t-esc="lastMessageText"/>
+                        <p t-esc="state.lastMessageText"/>
                     </div>
                 </div>
                 <div class="d-flex align-items-center pr-2">
@@ -28,6 +28,14 @@
                             class="btn btn-sm btn-outline-info"
                         >
                             Nhận
+                        </button>
+                    </t>
+                    <t t-if="'INTERACTIVE' === conversationState">
+                        <button
+                            style="min-width: 66px;"
+                            class="btn btn-outline-danger"
+                        >
+                            Đóng
                         </button>
                     </t>
                 </div>

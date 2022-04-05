@@ -20,5 +20,35 @@ export const ConversationService = AbstractService.extend({
                 currentPage: 1
             }],
         });
+    },
+    async find_conversations_by_sender(senderId) {
+        return await rpc.query({
+            model: 'mesocials.chat',
+            method: 'find_conversations_by_sender',
+            args: [null, {
+                senderId,
+                pageSize: 200   ,
+                currentPage: 1
+            }],
+        });
+    },
+    async pick_conversation(conversationId) {
+        return await rpc.query({
+            model: 'mesocials.chat',
+            method: 'pick_conversation',
+            args: [null, {
+                conversationId
+            }],
+        });
+    },
+    async send_message(conversationId, text) {
+        return await rpc.query({
+            model: 'mesocials.chat',
+            method: 'send_message',
+            args: [null, {
+                text,
+                conversationId
+            }],
+        });
     }
 });

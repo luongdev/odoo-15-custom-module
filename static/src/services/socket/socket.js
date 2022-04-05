@@ -24,7 +24,7 @@ export const SocketService = AbstractService.extend({
             query: {
                 tenantId: 4,
                 cloudTenantId: 4,
-                participantId: 69,
+                participantId: 70,
                 participantType: 'AGENT',
                 fullName: 'A Đê Min'
             },
@@ -36,7 +36,7 @@ export const SocketService = AbstractService.extend({
         socket.on('connect', () => {
             const initData = {
                 cloudTenantId: 4,
-                cloudAgentId: 69,
+                cloudAgentId: 70,
                 agentName: 'A Đê Min',
                 applicationIds: ["108717091450300", "1818300178909749291", "2428970580446024137"],
                 maxNumOfConversations: 1000

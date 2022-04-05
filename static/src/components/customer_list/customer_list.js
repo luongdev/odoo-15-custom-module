@@ -20,12 +20,15 @@ export class CustomerList extends Component {
         this.state = useState({customers: {}, senderIds: []});
         this.lastMessageUpdate = this._lastMessageUpdate.bind(this);
         this.onNewMessage = this._onNewMessage.bind(this);
+        this.customerNewConversation = this._customerNewConversation.bind(this);
     }
 
     async mounted() {
         const response = await this.conversationService.prototype.find_customers_with_last_message();
         this.state.customers = response.data.reduce((a, o) => ({...a, [o.senderId]: o}), {});
         this.state.senderIds = Object.keys(this.state.customers);
+
+        addListeners(this.customerNewConversation);
 
         const interactiveConversationIds = Object.values(this.state.customers)
             .filter(c => 'INTERACTIVE' === c.conversationState)
@@ -46,9 +49,30 @@ export class CustomerList extends Component {
     }
 
     _onNewMessage({ event, data: { senderId, text } }) {
-        if ('agent_received_message' !== event || !senderId || !text) return;
-
+        if ('agent_received_message' !== event) return;
         this.lastMessageUpdate({ senderId, text })
+    }
+
+    _customerNewConversation({ event, data: { message } }) {
+       if ('agent_receive_notification' !== event) return;
+
+       const senderId = message.senderId;
+       let customer = this.state.customers[senderId];
+       if (!customer) {
+           customer = {
+                senderId,
+                conversationState: 'OPEN',
+                lastMessage: message,
+                ...message.conversation
+           };
+           this.state.customers[senderId] = { ...customer };
+           this.state.senderIds.push(senderId);
+       } else {
+           this.state.senderIds = this.state.senderIds.filter(s => senderId !== s);
+           this.state.senderIds.push(senderId);
+       }
+
+       this.lastMessageUpdate({ senderId, text: message.text })
     }
 }
 

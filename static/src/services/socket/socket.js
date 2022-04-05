@@ -11,11 +11,13 @@ export const addListeners = (listener) => {
     listeners.push(listener);
 }
 
+let socket = null;
+
 export const SocketService = AbstractService.extend({
     dependencies: [],
     start() {
         this.listeners = [];
-        this._socket = io('https://uat-crm.gmarket24h.com', {
+        socket = io('https://uat-crm.gmarket24h.com', {
             path: '/chat-server',
             transports: ['websocket'],
             autoConnect: false,
@@ -31,7 +33,7 @@ export const SocketService = AbstractService.extend({
             }
         });
 
-        this._socket.on('connect', () => {
+        socket.on('connect', () => {
             const initData = {
                 cloudTenantId: 4,
                 cloudAgentId: 69,
@@ -39,24 +41,38 @@ export const SocketService = AbstractService.extend({
                 applicationIds: ["108717091450300", "1818300178909749291", "2428970580446024137"],
                 maxNumOfConversations: 1000
             };
-            this._socket.emit('agent_initialize', initData, initCb => {
-                console.log(initCb)
-                this._socket.on('agent_receive_notification', notification => {
-                    debugger
+            socket.emit('agent_initialize', initData, initCb => {
+                socket.on('agent_receive_notification', notification => {
                     for(const listener of listeners) {
-                        listener(notification);
+                        listener({ event: 'agent_receive_notification', data: notification });
+                    }
+                });
+                socket.on('agent_received_message', notification => {
+                    for(const listener of listeners) {
+                        listener({ event: 'agent_received_message', data: notification });
                     }
                 });
             });
         })
 
-        this._socket.on('disconnect', reason => {
+        socket.on('disconnect', reason => {
             console.log(reason)
         })
-
-        this._socket.connect();
+        socket.connect();
     },
-    get socket() {
-        return this._socket;
+    join_rooms(rooms) {
+        this._interval = setInterval(() => {
+            console.log(this._socket);
+
+            if (socket && socket.connected) {
+                socket.emit('agent_join_rooms', { rooms }, joinCb => {
+                })
+                clearInterval(this._interval)
+            }
+        }, 1000);
+
+    },
+    getSocket() {
+        return socket;
     }
 });

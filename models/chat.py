@@ -66,3 +66,15 @@ class Chat(models.Model):
         })
 
         return r.json()
+
+    def close_conversation(self, args):
+        url = self.baseUrl + '/conversation/close'
+        r = requests.post(url, json={
+            'cloudAgentId': 69,
+            'conversationId': args['conversationId']
+        }, headers={
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        })
+
+        return r.json()

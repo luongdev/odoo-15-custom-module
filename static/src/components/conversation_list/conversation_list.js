@@ -5,6 +5,9 @@ import viewRegistry from 'web.view_registry';
 import {serviceRegistry} from 'web.core';
 
 import {Conversation} from '@mesocials/components/conversation/conversation';
+import {addListeners} from '@mesocials/services/socket/socket';
+
+import {onCloseConversation} from '@mesocials/services/conversation/conversation_bus';
 
 const {Component, hooks} = owl;
 const {useState} = hooks;
@@ -26,13 +29,20 @@ export class ConversationList extends Component {
             messageContent: null,
             pickedConversationId: null
         });
-        this.onCustomerSelected = this._onCustomerSelected.bind(this);
-        this.onPickClicked = this._onPickClicked.bind(this);
-        this.sendMessage = this._sendMessage.bind(this);
     }
 
     async mounted() {
         await this._loadConversations(this.props.senderId);
+    }
+
+    setup() {
+        this.onCustomerSelected = this._onCustomerSelected.bind(this);
+        this.onPickClicked = this._onPickClicked.bind(this);
+        this.sendMessage = this._sendMessage.bind(this);
+        this.onAgentReceivedMessage = this._onAgentReceivedMessage.bind(this);
+        this.onConversationClosed = this._onConversationClosed.bind(this);
+        addListeners(this.onAgentReceivedMessage);
+        onCloseConversation(this.onConversationClosed)
     }
 
     async _loadConversations(senderId) {
@@ -108,6 +118,31 @@ export class ConversationList extends Component {
 
             this.messageArea.scrollTop = this.messageArea.scrollHeight;
         }
+    }
+
+    _onAgentReceivedMessage({event, data}) {
+        if ('agent_received_message' !== event) return;
+
+        let conversation = this.state.conversations[data.conversationId];
+        if (!conversation) {
+            conversation = {
+                conversationId: data.conversationId,
+                senderId: data.senderId,
+                applicationId: data.applicationId,
+                conversationState: 'OPEN',
+                messages: []
+            }
+        } else {
+            this.state.conversationIds = this.state.conversationIds.filter(c => c !== data.conversationId);
+        }
+        conversation.messages.push(data);
+        this.state.conversations[data.conversationId] = conversation;
+        this.state.conversationIds.push(data.conversationId);
+    }
+
+    _onConversationClosed({ conversationId, customer }) {
+        debugger
+        this.state.conversations[conversationId].conversationState = 'INTERACTIVE';
     }
 }
 

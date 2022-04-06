@@ -2,6 +2,8 @@
 
 import viewRegistry from 'web.view_registry';
 import {serviceRegistry} from 'web.core';
+import { closeConversation } from '@mesocials/services/conversation/conversation_bus';
+
 
 const {Component, hooks} = owl;
 const { useState } = hooks;
@@ -11,14 +13,19 @@ export class Customer extends Component {
 
     constructor(_, props) {
         super(_, props);
-        this.customerClicked = this._customerClicked.bind(this);
-        this.pickConversationClicked = this._pickConversationClicked.bind(this);
         this.conversationService = serviceRegistry.get('conversationService');
         this.state = useState({
             conversationState: this.props.customer.conversationState,
             lastMessageText: this.props.customer.lastMessage.text
         });
+
+    }
+
+    setup() {
         this.lastMessageUpdate = this._lastMessageUpdate.bind(this);
+        this.closeConversationClicked = this._closeConversationClicked.bind(this);
+        this.customerClicked = this._customerClicked.bind(this);
+        this.pickConversationClicked = this._pickConversationClicked.bind(this);
     }
 
     get receivedDateTime() {
@@ -56,6 +63,15 @@ export class Customer extends Component {
 
     _lastMessageUpdate(message) {
         this.state.lastMessageText = message.text;
+    }
+
+    async _closeConversationClicked() {
+        debugger
+        const { conversationId } = this.props.customer;
+        await this.conversationService.prototype.close_conversation(conversationId);
+        this.state.conversationState = 'CLOSE';
+
+        closeConversation({ conversationId, customer: this.props })
     }
 }
 

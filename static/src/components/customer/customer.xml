@@ -32,6 +32,7 @@
                     </t>
                     <t t-if="'INTERACTIVE' === conversationState">
                         <button
+                            t-on-click="closeConversationClicked"
                             style="min-width: 66px;"
                             class="btn btn-outline-danger"
                         >

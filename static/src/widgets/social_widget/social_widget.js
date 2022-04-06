@@ -23,13 +23,11 @@ export class SocialWidget extends Component {
         this.onCustomerClicked = this._onCustomerClicked.bind(this);
         this.onPickClicked = this._onPickClicked.bind(this);
         this.onLastMessageUpdate = this._onLastMessageUpdate.bind(this);
+        this.onCloseClicked = this._onCloseClicked.bind(this);
     }
 
     setup() {
         super.setup();
-
-
-
     }
 
     async _onCustomerClicked({detail: {customer}}) {
@@ -52,6 +50,12 @@ export class SocialWidget extends Component {
         if (!sideBarComponent) return;
 
         sideBarComponent.lastMessageUpdate(message);
+    }
+
+    async _onCloseClicked({detail: {customer}}) {
+        const {comp: sideBarComponent} = this.sideBar;
+        if (!sideBarComponent) return;
+        await sideBarComponent.onCloseClicked(customer);
     }
 
     get senderId() {

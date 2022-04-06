@@ -50,5 +50,14 @@ export const ConversationService = AbstractService.extend({
                 conversationId
             }],
         });
+    },
+    async close_conversation(conversationId) {
+        return await rpc.query({
+            model: 'mesocials.chat',
+            method: 'close_conversation',
+            args: [null, {
+                conversationId
+            }],
+        });
     }
 });
